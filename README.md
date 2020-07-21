@@ -2,11 +2,19 @@
 
 This project is being developed as part of an internship at Sibdev.
 
-## Available Scripts
+## Usage
 
-In the project directory, you can run:
+For run application:
 
-### `npm start`
+### `git clone https://gitlab.com/sibdevstudio/practice/practice-project-js-U-OK`
+
+After the download is complete: 
+
+### `npm install` or `yarn install`
+
+And when install is done:
+
+### `npm start` or `run start`
 
 Runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.

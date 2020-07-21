@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import { increment, decrement } from "./redux/actions";
+import { increment, decrement } from "../redux/actions";
+import Nav from "../components/Nav";
 
 import { Button } from "@material-ui/core";
 
@@ -16,7 +17,8 @@ class Test extends React.Component {
   render() {
     const { count } = this.props;
     return (
-      <div>
+      <div className="App">
+        <Nav />
         <h1>I'm test</h1>
         <h2>Count: {count}</h2>
         <div>
