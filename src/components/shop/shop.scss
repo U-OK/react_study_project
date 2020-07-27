@@ -1,0 +1,25 @@
+.main {
+  text-align: center;
+  display: flex;
+  flex-grow: 1;
+  height: calc(100vh - 30px);
+}
+
+.leftSection {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1.5;
+  flex-shrink: 1;
+}
+
+.rightSection {
+  background-image: url(../../images/illustration-geiranger.jpg);
+  background-size: cover;
+  flex-grow: 4;
+  flex-shrink: 0;
+}
+
+.listItems {
+  overflow-y: scroll;
+  flex: 1 0 auto;
+}
