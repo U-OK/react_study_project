@@ -5,10 +5,14 @@ import "./nav.scss";
 
 const Nav = (props) => {
   return (
-    <ul className="Nav">
-      <Link to="/">Home</Link>
-      <Link to="/test-page">Test page</Link>
-    </ul>
+    <div className="Nav">
+      <Link className="Nav__link" to="/">
+        Главная
+      </Link>
+      <Link className="Nav__link" to="/owner/places">
+        Страница заведений
+      </Link>
+    </div>
   );
 };
 

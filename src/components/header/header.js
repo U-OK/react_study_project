@@ -5,10 +5,10 @@ import "./header.scss";
 
 const Header = (props) => {
   return (
-    <ul className="Header">
+    <div className="Header">
       <Link to="/">Главная страница</Link>
       <p>Войти</p>
-    </ul>
+    </div>
   );
 };
 

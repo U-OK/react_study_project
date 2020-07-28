@@ -1,12 +1,10 @@
 import React from "react";
-// import { useDispatch, useSelector } from "react-redux";
-// import { increment, decrement } from "../redux/actions";
 
-import "./shop.scss";
+import "./places.scss";
 
 import { Button } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
-import { Title, ShopItem, Header } from "./components";
+import { Title, PlaceItem, Header } from "..";
 
 const StyledButton = withStyles({
   root: {
@@ -16,21 +14,21 @@ const StyledButton = withStyles({
   },
 })(Button);
 
-const Shop = () => {
+const Places = () => {
   return (
     <React.Fragment>
       <Header />
-      <div className="main">
-        <div className="leftSection">
+      <div className="places">
+        <div className="places__sidebar">
           <Title />
-          <div className="listItems">
-            <ShopItem />
-            <ShopItem />
-            <ShopItem />
+          <div className="places__list">
+            <PlaceItem />
+            <PlaceItem />
+            <PlaceItem />
           </div>
           <StyledButton variant="contained">Добавить заведение</StyledButton>
         </div>
-        <div className="rightSection">
+        <div className="places__redaction">
           <p>Hello</p>
         </div>
       </div>
@@ -38,4 +36,4 @@ const Shop = () => {
   );
 };
 
-export default Shop;
+export default Places;
