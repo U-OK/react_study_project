@@ -1,4 +1,4 @@
 import { combineReducers } from "redux";
-import testReducer from "./testReducer";
+import axiosReducer from "./axiosReducer";
 
-export default combineReducers({ testReducer });
+export default combineReducers({ axiosReducer });

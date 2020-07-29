@@ -1,2 +1,3 @@
-export const PLUS = "PLUS";
-export const MINUS = "MINUS";
+export const GET_PLACES_SUCCES = "GET_PLACES_SUCCES";
+export const GET_PLACES_FAILURE = "GET_PLACES_FAILURE";
+export const GET_PLACES_STARTED = "GET_PLACES_STARTED";

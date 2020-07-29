@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getPlaces } from "../../redux/actions";
 
 import "./places.scss";
 
 import { Button } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
-import { Title, PlaceItem, Header } from "..";
+import { Title, PlaceItem, Header, Spinner } from "..";
 
 const StyledButton = withStyles({
   root: {
@@ -15,6 +17,14 @@ const StyledButton = withStyles({
 })(Button);
 
 const Places = () => {
+  const dispatch = useDispatch();
+  useEffect(() => dispatch(getPlaces()), [dispatch]);
+
+  const places = useSelector((state) => state.axiosReducer.places);
+  const isLoading = useSelector((state) => state.axiosReducer.loading);
+
+  const Click = () => console.log("Click");
+
   return (
     <React.Fragment>
       <Header />
@@ -22,11 +32,17 @@ const Places = () => {
         <div className="places__sidebar">
           <Title />
           <div className="places__list">
-            <PlaceItem />
-            <PlaceItem />
-            <PlaceItem />
+            {isLoading ? (
+              <Spinner />
+            ) : (
+              places.map((place, index) => (
+                <PlaceItem name={place.name} key={place + index} />
+              ))
+            )}
           </div>
-          <StyledButton variant="contained">Добавить заведение</StyledButton>
+          <StyledButton variant="contained" onClick={Click}>
+            Добавить заведение
+          </StyledButton>
         </div>
         <div className="places__redaction">
           <p>Hello</p>

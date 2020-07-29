@@ -5,11 +5,11 @@ import "./nav.scss";
 
 const Nav = (props) => {
   return (
-    <div className="Nav">
-      <Link className="Nav__link" to="/">
+    <div className="nav">
+      <Link className="nav__link" to="/">
         Главная
       </Link>
-      <Link className="Nav__link" to="/owner/places">
+      <Link className="nav__link" to="/owner/places">
         Страница заведений
       </Link>
     </div>
