@@ -2,7 +2,7 @@ import {
   GET_PLACES_FAILURE,
   GET_PLACES_SUCCES,
   GET_PLACES_STARTED,
-} from "../actionTypes";
+} from "./actionTypes";
 
 const initialState = {
   loading: false,

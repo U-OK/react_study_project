@@ -4,14 +4,14 @@ import {
   GET_PLACES_SUCCES,
 } from "./actionTypes";
 
-import axios from "axios";
+import { api } from "../../api";
 
 export const getPlaces = () => {
   return (dispatch) => {
     dispatch(getPlacesStarted());
 
-    axios
-      .get(`http://37.140.197.3/api/places/`)
+    api
+      .GET("places")
       .then((res) => {
         dispatch(getPlacesSuccess(res.data));
       })

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getPlaces } from "../../redux/actions";
+import { getPlaces } from "../../redux/places/actions";
 
 import "./places.scss";
 
@@ -18,12 +18,9 @@ const StyledButton = withStyles({
 
 const Places = () => {
   const dispatch = useDispatch();
+  const { places, isLoading } = useSelector((state) => state.placesReducer);
+
   useEffect(() => dispatch(getPlaces()), [dispatch]);
-
-  const places = useSelector((state) => state.axiosReducer.places);
-  const isLoading = useSelector((state) => state.axiosReducer.loading);
-
-  const Click = () => console.log("Click");
 
   return (
     <React.Fragment>
@@ -32,17 +29,14 @@ const Places = () => {
         <div className="places__sidebar">
           <Title />
           <div className="places__list">
-            {isLoading ? (
-              <Spinner />
-            ) : (
+            {isLoading && <Spinner />}
+
+            {!isLoading &&
               places.map((place, index) => (
                 <PlaceItem name={place.name} key={place + index} />
-              ))
-            )}
+              ))}
           </div>
-          <StyledButton variant="contained" onClick={Click}>
-            Добавить заведение
-          </StyledButton>
+          <StyledButton variant="contained">Добавить заведение</StyledButton>
         </div>
         <div className="places__redaction">
           <p>Hello</p>
