@@ -1,5 +1,7 @@
 import React from "react";
 
-const PlaceItem = () => <div className="element">Имя заведения</div>;
+const PlaceItem = ({ name = "новое заведение" }) => (
+  <div className="element">{name}</div>
+);
 
 export default PlaceItem;
