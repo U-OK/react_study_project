@@ -1,15 +1,14 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import MainPage from "../pages/MainPage";
-import PlacesPage from "../pages/PlacesPage";
+import { MainPage, PlacesPage } from "../pages";
 
 const AppRouter = () => {
   return (
     <Router>
       <Switch>
         <Route exact path="/" component={MainPage} />
-        <Route exact path="/owner/places" component={PlacesPage} />
+        <Route path="/owner/places" component={PlacesPage} />
       </Switch>
     </Router>
   );

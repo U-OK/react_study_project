@@ -1,0 +1,11 @@
+.edit {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
+.edit__row {
+  display: flex;
+  align-items: center;
+  margin: 10px;
+}
