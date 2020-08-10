@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Switch, Link, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { getPlaces } from "../../redux/places/actions";
+import { getPlaces } from "../../redux/placesList/actions";
 
 import { Title, Spinner } from "..";
 
@@ -44,13 +44,25 @@ const useStyles = makeStyles((theme) => ({
       transition: "all 0.25s ease",
     },
   },
+  linkButton: {
+    textDecoration: "none",
+    color: "#3f51b5",
+    "&:hover": {
+      color: "#24306b",
+      transition: "all 0.25s ease",
+    },
+  },
+  sideBlock: {
+    flexGrow: 1,
+    paddingTop: "10px",
+  },
 }));
 
 const Places = () => {
   const classes = useStyles();
 
   const dispatch = useDispatch();
-  const { places, isLoading } = useSelector((state) => state.placesReducer);
+  const { places, loading } = useSelector((state) => state.placesListReducer);
 
   useEffect(() => dispatch(getPlaces()), [dispatch]);
 
@@ -67,29 +79,35 @@ const Places = () => {
           <Title withBack>Мои заведения</Title>
 
           <List className={classes.drawerContainer}>
-            {isLoading && <Spinner />}
+            {loading && <Spinner />}
 
-            {!isLoading &&
+            {!loading &&
               places.map((place, index) => (
-                <ListItem button key={place + index}>
-                  <ListItemAvatar>
-                    <Avatar alt="Фотография заведения" src={place.image} />
-                  </ListItemAvatar>
-                  <ListItemText>{place.name}</ListItemText>
-                </ListItem>
+                <Link
+                  to={`/owner/places/${place.id}`}
+                  key={place + index}
+                  className={classes.linkButton}
+                >
+                  <ListItem button>
+                    <ListItemAvatar>
+                      <Avatar alt="Фотография заведения" src={place.image} />
+                    </ListItemAvatar>
+                    <ListItemText>{place.name}</ListItemText>
+                  </ListItem>
+                </Link>
               ))}
           </List>
 
-          <Link to="/owner/places/1">
+          <Link to={`/owner/places/new`}>
             <Button variant="contained" fullWidth className={classes.button}>
               Добавить заведение
             </Button>
           </Link>
         </Drawer>
 
-        <div className={classes.side}>
+        <div className={classes.sideBlock}>
           <Switch>
-            <Route path="/owner/places/1" component={EditPlaces} />
+            <Route path="/owner/places/:id" component={EditPlaces} />
           </Switch>
         </div>
       </div>

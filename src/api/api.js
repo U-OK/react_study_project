@@ -9,6 +9,9 @@ export default {
   PUT(path, data) {
     return HTTP.put(path, data, { timeout });
   },
+  DELETE(path, data) {
+    return HTTP.delete(path, data, { timeout });
+  },
   GET(path) {
     return HTTP.get(path, {
       params,

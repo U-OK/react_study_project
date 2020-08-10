@@ -1,4 +1,5 @@
 import { combineReducers } from "redux";
-import placesReducer from "./places/reducer";
+import placesListReducer from "./placesList/reducer";
+import placeEditReducer from "./placeEdit/reducer";
 
-export default combineReducers({ placesReducer });
+export default combineReducers({ placesListReducer, placeEditReducer });
