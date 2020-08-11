@@ -23,25 +23,40 @@ export const getPlaceById = (id) => {
 
 export const putPlaceById = (id, place) => {
   return (dispatch) => {
-    api.PUT(`places/${id}/`, place).then((response) => {
-      console.log(response);
-    });
+    api
+      .PUT(`places/${id}/`, place)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 };
 
 export const deletePlaceById = (id) => {
   return (dispatch) => {
-    api.DELETE(`places/${id}/`).then((response) => {
-      console.log(response);
-    });
+    api
+      .DELETE(`places/${id}/`)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 };
 
 export const postPlace = (place) => {
   return (dispatch) => {
-    api.POST(`places/`, place).then((response) => {
-      console.log(response);
-    });
+    api
+      .POST(`places/`, place)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 };
 

@@ -67,7 +67,7 @@ const Places = () => {
   useEffect(() => dispatch(getPlaces()), [dispatch]);
 
   return (
-    <React.Fragment>
+    <>
       <div className={classes.root}>
         <Drawer
           variant="permanent"
@@ -111,7 +111,7 @@ const Places = () => {
           </Switch>
         </div>
       </div>
-    </React.Fragment>
+    </>
   );
 };
 

@@ -7,11 +7,11 @@ import {
 const initialState = {
   isLoading: false,
   currentPlace: {
-    name: "",
+    name: "Введите название",
     image: "",
-    from_hour: "",
-    to_hour: "",
-    address: "",
+    from_hour: "08:00:00",
+    to_hour: "21:00:00",
+    address: "Введите адрес",
   },
   error: null,
 };

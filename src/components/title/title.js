@@ -14,9 +14,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Title = ({ children, withBack }) => {
   const classes = useStyles();
-  let classFor;
-
-  withBack ? (classFor = classes.titleBackground) : (classFor = classes.title);
+  const classFor = withBack ? classes.titleBackground : classes.title;
 
   return (
     <Typography variant="h4" component="h1" className={classFor}>

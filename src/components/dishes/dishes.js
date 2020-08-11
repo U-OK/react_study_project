@@ -21,7 +21,7 @@ const Dishes = () => {
   };
 
   return (
-    <React.Fragment>
+    <>
       <InputLabel id="dishes">Блюда</InputLabel>
       <Select
         className="dishes"
@@ -36,7 +36,7 @@ const Dishes = () => {
         renderValue={(selected) => (
           <div className="chips">
             {selected.map((value) => (
-              <Chip key={value} label={value} className="chip" />
+              <Chip key={value} label={value} className="chips__item" />
             ))}
           </div>
         )}
@@ -48,7 +48,7 @@ const Dishes = () => {
         ))}
       </Select>
       <Button>Добавить блюдо</Button>
-    </React.Fragment>
+    </>
   );
 };
 

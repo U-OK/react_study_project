@@ -6,11 +6,9 @@ const ImagePreview = ({
   width = "200",
   height = "200",
 }) => {
-  if (!src) {
-    src = `https://via.placeholder.com/${width}x${height}`;
-  }
+  const imgSrc = src ? src : `https://via.placeholder.com/${width}x${height}`;
 
-  return <img src={src} alt={alt} width={width} height={height} />;
+  return <img src={imgSrc} alt={alt} width={width} height={height} />;
 };
 
 export default ImagePreview;
