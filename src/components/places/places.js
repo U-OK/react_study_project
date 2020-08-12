@@ -1,48 +1,117 @@
 import React, { useEffect } from "react";
+import { Switch, Link, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getPlaces } from "../../redux/places/actions";
 
-import "./places.scss";
+import { getPlaces } from "../../redux/placesList/actions";
 
-import { Button } from "@material-ui/core";
-import { withStyles } from "@material-ui/core/styles";
-import { Title, PlaceItem, Header, Spinner } from "..";
+import { Title, Spinner } from "..";
 
-const StyledButton = withStyles({
+import {
+  Button,
+  makeStyles,
+  Drawer,
+  Toolbar,
+  List,
+  ListItem,
+  ListItemText,
+  ListItemAvatar,
+  Avatar,
+} from "@material-ui/core";
+import EditPlaces from "../editPlaces/editPlaces";
+
+const useStyles = makeStyles((theme) => ({
   root: {
-    borderRadius: 0,
-    width: "100%",
-    height: "40px",
+    display: "flex",
   },
-})(Button);
+  drawer: {
+    width: "270px",
+  },
+  drawerPaper: {
+    width: "270px",
+  },
+  drawerContainer: {
+    flexGrow: 1,
+    overflowY: "scroll",
+  },
+  button: {
+    backgroundColor: "#3f51b5",
+    borderRadius: 0,
+    color: "white",
+    textDecoration: "none",
+    "&:hover": {
+      color: "#ffc841",
+      backgroundColor: "#3f51b5",
+      transition: "all 0.25s ease",
+    },
+  },
+  linkButton: {
+    textDecoration: "none",
+    color: "#3f51b5",
+    "&:hover": {
+      color: "#24306b",
+      transition: "all 0.25s ease",
+    },
+  },
+  sideBlock: {
+    flexGrow: 1,
+    paddingTop: "10px",
+  },
+}));
 
 const Places = () => {
+  const classes = useStyles();
+
   const dispatch = useDispatch();
-  const { places, isLoading } = useSelector((state) => state.placesReducer);
+  const { places, loading } = useSelector((state) => state.placesListReducer);
 
   useEffect(() => dispatch(getPlaces()), [dispatch]);
 
   return (
-    <React.Fragment>
-      <Header />
-      <div className="places">
-        <div className="places__sidebar">
-          <Title />
-          <div className="places__list">
-            {isLoading && <Spinner />}
+    <>
+      <div className={classes.root}>
+        <Drawer
+          variant="permanent"
+          className={classes.drawer}
+          classes={{ paper: classes.drawerPaper }}
+        >
+          <Toolbar />
 
-            {!isLoading &&
+          <Title withBack>Мои заведения</Title>
+
+          <List className={classes.drawerContainer}>
+            {loading && <Spinner />}
+
+            {!loading &&
               places.map((place, index) => (
-                <PlaceItem name={place.name} key={place + index} />
+                <Link
+                  to={`/owner/places/${place.id}`}
+                  key={place + index}
+                  className={classes.linkButton}
+                >
+                  <ListItem button>
+                    <ListItemAvatar>
+                      <Avatar alt="Фотография заведения" src={place.image} />
+                    </ListItemAvatar>
+                    <ListItemText>{place.name}</ListItemText>
+                  </ListItem>
+                </Link>
               ))}
-          </div>
-          <StyledButton variant="contained">Добавить заведение</StyledButton>
-        </div>
-        <div className="places__redaction">
-          <p>Hello</p>
+          </List>
+
+          <Link to={`/owner/places/new`}>
+            <Button variant="contained" fullWidth className={classes.button}>
+              Добавить заведение
+            </Button>
+          </Link>
+        </Drawer>
+
+        <div className={classes.sideBlock}>
+          <Switch>
+            <Route path="/owner/places/:id" component={EditPlaces} />
+          </Switch>
         </div>
       </div>
-    </React.Fragment>
+    </>
   );
 };
 
