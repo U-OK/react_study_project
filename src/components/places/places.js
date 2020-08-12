@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
-import { Switch, Link, Route } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
+import PlacesideRouter from "../../route/PlacesideRouter";
 import { getPlaces } from "../../redux/placesList/actions";
 
 import { Title, Spinner } from "..";
@@ -17,7 +18,6 @@ import {
   ListItemAvatar,
   Avatar,
 } from "@material-ui/core";
-import EditPlaces from "../editPlaces/editPlaces";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
   drawerContainer: {
     flexGrow: 1,
     overflowY: "scroll",
+    overflowX: "hidden",
   },
   button: {
     backgroundColor: "#3f51b5",
@@ -62,7 +63,9 @@ const Places = () => {
   const classes = useStyles();
 
   const dispatch = useDispatch();
-  const { places, loading } = useSelector((state) => state.placesListReducer);
+  const { places, listPlacesLoading } = useSelector(
+    (state) => state.placesListReducer
+  );
 
   useEffect(() => dispatch(getPlaces()), [dispatch]);
 
@@ -79,9 +82,9 @@ const Places = () => {
           <Title withBack>Мои заведения</Title>
 
           <List className={classes.drawerContainer}>
-            {loading && <Spinner />}
+            {listPlacesLoading && <Spinner />}
 
-            {!loading &&
+            {!listPlacesLoading &&
               places.map((place, index) => (
                 <Link
                   to={`/owner/places/${place.id}`}
@@ -106,9 +109,7 @@ const Places = () => {
         </Drawer>
 
         <div className={classes.sideBlock}>
-          <Switch>
-            <Route path="/owner/places/:id" component={EditPlaces} />
-          </Switch>
+          <PlacesideRouter />
         </div>
       </div>
     </>

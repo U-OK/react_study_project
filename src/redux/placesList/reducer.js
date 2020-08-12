@@ -5,7 +5,7 @@ import {
 } from "./actionTypes";
 
 const initialState = {
-  loading: false,
+  listPlacesLoading: false,
   places: [],
   error: null,
 };
@@ -15,20 +15,20 @@ export default function (state = initialState, action) {
     case GET_PLACES_STARTED: {
       return {
         ...state,
-        loading: true,
+        listPlacesLoading: true,
       };
     }
     case GET_PLACES_SUCCES: {
       return {
         ...state,
-        loading: false,
+        listPlacesLoading: false,
         places: action.payload,
       };
     }
     case GET_PLACES_FAILURE: {
       return {
         ...state,
-        loading: false,
+        listPlacesLoading: false,
         error: action.payload.error,
       };
     }

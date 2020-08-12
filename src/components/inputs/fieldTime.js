@@ -5,11 +5,10 @@ const useStyle = makeStyles((theme) => ({
   wrapper: {
     display: "flex",
     flexDirection: "column",
-    padding: "10px 0",
+    padding: "10px 5px",
   },
   field: {
-    width: "200px",
-    margin: "auto",
+    width: "150px",
   },
   error: {
     paddingLeft: "10px",

@@ -3,13 +3,14 @@ import { Formik, Form, Field } from "formik";
 import { Button, Paper, makeStyles } from "@material-ui/core";
 import { Dishes, FieldTime, FieldText, FieldImage, Spinner } from "..";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { placeSchema } from "../validation";
 import {
   getPlaceById,
   putPlaceById,
   deletePlaceById,
   postPlace,
+  getPlaceNew,
 } from "../../redux/placeEdit/actions";
 
 const useStyle = makeStyles((theme) => ({
@@ -23,6 +24,10 @@ const useStyle = makeStyles((theme) => ({
     flexDirection: "column",
     alignItems: "center",
   },
+  timeWrapper: {
+    display: "flex",
+    justifyContent: "space-between",
+  },
   buttonBlock: {
     display: "flex",
     justifyContent: "space-between",
@@ -31,21 +36,24 @@ const useStyle = makeStyles((theme) => ({
 }));
 
 const EditPlaces = () => {
-  const { id } = useParams();
+  const { idPlace } = useParams();
   const dispatch = useDispatch();
+  const history = useHistory();
   const classes = useStyle();
 
-  const { currentPlace, isLoading } = useSelector(
+  const { currentPlace, placeLoading } = useSelector(
     (state) => state.placeEditReducer
   );
 
   useEffect(() => {
-    if (id !== "new") {
-      dispatch(getPlaceById(id));
-    }
-  }, [dispatch, id]);
+    idPlace === "new"
+      ? dispatch(getPlaceNew())
+      : dispatch(getPlaceById(idPlace));
+  }, [dispatch, idPlace]);
 
   const { name, image, from_hour, to_hour, address } = currentPlace;
+
+  const redirectToPlaces = () => history.push("/owner/places");
 
   const submitForm = (values, setSubmitting) => {
     setSubmitting(true);
@@ -59,20 +67,26 @@ const EditPlaces = () => {
 
     console.log(values);
 
-    if (id === "new") {
+    if (idPlace === "new") {
       dispatch(postPlace(formData));
     } else {
-      dispatch(putPlaceById(id, formData));
+      dispatch(putPlaceById(idPlace, formData));
     }
     setSubmitting(false);
+    redirectToPlaces();
   };
 
-  const handleDelte = (id) => {
-    console.log(id);
-    dispatch(deletePlaceById(id));
+  const handleDelte = (idPlace) => {
+    dispatch(deletePlaceById(idPlace));
+    redirectToPlaces();
   };
 
-  if (isLoading) return <Spinner />;
+  if (placeLoading)
+    return (
+      <Paper elevation={3} className={classes.paperContainer}>
+        <Spinner />
+      </Paper>
+    );
 
   return (
     <>
@@ -107,19 +121,26 @@ const EditPlaces = () => {
                 label="Адрес заведения"
                 value={values.address}
               />
+              <div className={classes.timeWrapper}>
+                <Field
+                  component={FieldTime}
+                  name="from_hour"
+                  label="Время начала работы"
+                  value={values.from_hour}
+                />
+                <Field
+                  component={FieldTime}
+                  name="to_hour"
+                  label="Время окончания работы"
+                  value={values.to_hour}
+                />
+              </div>
               <Field
-                component={FieldTime}
-                name="from_hour"
-                label="Время начала работы"
-                value={values.from_hour}
+                component={Dishes}
+                idPlace={idPlace}
+                name="dishes"
+                label="Блюда"
               />
-              <Field
-                component={FieldTime}
-                name="to_hour"
-                label="Время окончания работы"
-                value={values.to_hour}
-              />
-              <Field component={Dishes} name="dishes" label="Блюда" />
               <div className={classes.buttonBlock}>
                 <Button
                   variant="contained"
@@ -127,13 +148,15 @@ const EditPlaces = () => {
                   disabled={isSubmitting}
                   onClick={submitForm}
                 >
-                  {id === "new" ? "Добавить заведение" : "Внести изменения"}
+                  {idPlace === "new"
+                    ? "Добавить заведение"
+                    : "Внести изменения"}
                 </Button>
 
-                {id !== "new" && (
+                {idPlace !== "new" && (
                   <Button
                     disabled={isSubmitting}
-                    onClick={() => handleDelte(id)}
+                    onClick={() => handleDelte(idPlace)}
                   >
                     Удалить заведение
                   </Button>
@@ -143,7 +166,6 @@ const EditPlaces = () => {
           )}
         </Formik>
       </Paper>
-      )
     </>
   );
 };

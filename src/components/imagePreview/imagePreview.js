@@ -8,7 +8,15 @@ const ImagePreview = ({
 }) => {
   const imgSrc = src ? src : `https://via.placeholder.com/${width}x${height}`;
 
-  return <img src={imgSrc} alt={alt} width={width} height={height} />;
+  return (
+    <img
+      src={imgSrc}
+      alt={alt}
+      width={width}
+      height={height}
+      style={{ borderRadius: "50%" }}
+    />
+  );
 };
 
 export default ImagePreview;

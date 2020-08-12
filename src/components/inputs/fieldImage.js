@@ -36,7 +36,7 @@ const FieldImage = ({
 
     const reader = new FileReader();
     reader.readAsDataURL(file);
-    reader.onloadend = () => setFieldValue("image", reader.result);
+    reader.onloadend = () => setFieldValue(field.name, reader.result);
   };
 
   return (
@@ -50,7 +50,7 @@ const FieldImage = ({
         onChange={(event) => setImage(event)}
       />
       <div>
-        <ImagePreview src={values.image} />
+        <ImagePreview src={values[field.name]} />
         {touched && errors && <div>{errors[field.name]}</div>}
       </div>
       <Button
