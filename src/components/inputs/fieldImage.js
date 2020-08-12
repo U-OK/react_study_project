@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Button, makeStyles } from "@material-ui/core";
 import { ImagePreview } from "..";
 
@@ -24,10 +24,10 @@ const FieldImage = ({
   ...props
 }) => {
   const classes = useStyle();
+  const ref = useRef();
 
   const inputClick = () => {
-    const $input = document.getElementById(`${field.name}`);
-    $input.click();
+    ref.current.click();
   };
 
   const setImage = (event) => {
@@ -44,6 +44,7 @@ const FieldImage = ({
       <input
         id={field.name}
         name={field.name}
+        ref={ref}
         type="file"
         hidden
         onChange={(event) => setImage(event)}

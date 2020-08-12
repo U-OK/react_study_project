@@ -47,6 +47,26 @@ const EditPlaces = () => {
 
   const { name, image, from_hour, to_hour, address } = currentPlace;
 
+  const submitForm = (values, setSubmitting) => {
+    setSubmitting(true);
+    const formData = new FormData();
+
+    formData.append("name", values.name);
+    formData.append("image", values.file);
+    formData.append("from_hour", values.from_hour);
+    formData.append("to_hour", values.to_hour);
+    formData.append("address", values.address);
+
+    console.log(values);
+
+    if (id === "new") {
+      dispatch(postPlace(formData));
+    } else {
+      dispatch(putPlaceById(id, formData));
+    }
+    setSubmitting(false);
+  };
+
   const handleDelte = (id) => {
     console.log(id);
     dispatch(deletePlaceById(id));
@@ -68,25 +88,9 @@ const EditPlaces = () => {
             file: null,
           }}
           validate={(values) => placeSchema(values)}
-          onSubmit={(values, { setSubmitting }) => {
-            setSubmitting(true);
-            const formData = new FormData();
-
-            formData.append("name", values.name);
-            formData.append("image", values.file);
-            formData.append("from_hour", values.from_hour);
-            formData.append("to_hour", values.to_hour);
-            formData.append("address", values.address);
-
-            console.log(values);
-
-            if (id === "new") {
-              dispatch(postPlace(formData));
-            } else {
-              dispatch(putPlaceById(id, formData));
-            }
-            setSubmitting(false);
-          }}
+          onSubmit={(values, { setSubmitting }) =>
+            submitForm(values, setSubmitting)
+          }
         >
           {({ values, submitForm, isSubmitting }) => (
             <Form className={classes.formBlock}>

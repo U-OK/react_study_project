@@ -6,8 +6,8 @@
 .chips {
   display: flex;
   flex-wrap: wrap;
-}
 
-.chips__item {
-  margin: 2px;
+  &__item {
+    margin: 2px;
+  }
 }
