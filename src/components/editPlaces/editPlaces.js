@@ -41,17 +41,16 @@ const EditPlaces = () => {
   const history = useHistory();
   const classes = useStyle();
 
-  const { currentPlace, placeLoading } = useSelector(
-    (state) => state.placeEditReducer
-  );
+  const {
+    currentPlace: { name, image, from_hour, to_hour, address },
+    placeLoading,
+  } = useSelector((state) => state.placeEditReducer);
+
+  const isNewPlace = idPlace === "new";
 
   useEffect(() => {
-    idPlace === "new"
-      ? dispatch(getPlaceNew())
-      : dispatch(getPlaceById(idPlace));
-  }, [dispatch, idPlace]);
-
-  const { name, image, from_hour, to_hour, address } = currentPlace;
+    isNewPlace ? dispatch(getPlaceNew()) : dispatch(getPlaceById(idPlace));
+  }, [dispatch, idPlace, isNewPlace]);
 
   const redirectToPlaces = () => history.push("/owner/places");
 
@@ -67,7 +66,7 @@ const EditPlaces = () => {
 
     console.log(values);
 
-    if (idPlace === "new") {
+    if (isNewPlace) {
       dispatch(postPlace(formData));
     } else {
       dispatch(putPlaceById(idPlace, formData));
@@ -148,12 +147,10 @@ const EditPlaces = () => {
                   disabled={isSubmitting}
                   onClick={submitForm}
                 >
-                  {idPlace === "new"
-                    ? "Добавить заведение"
-                    : "Внести изменения"}
+                  {isNewPlace ? "Добавить заведение" : "Внести изменения"}
                 </Button>
 
-                {idPlace !== "new" && (
+                {isNewPlace && (
                   <Button
                     disabled={isSubmitting}
                     onClick={() => handleDelte(idPlace)}

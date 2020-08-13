@@ -40,14 +40,16 @@ const EditDishes = () => {
   const history = useHistory();
 
   const { idDish, idPlace } = useParams();
+  const isNewDish = idDish === "new";
 
-  const { dish, dishLoading } = useSelector((state) => state.dishesEditReducer);
+  const {
+    dish: { name, ingredients, photo, calories, price },
+    dishLoading,
+  } = useSelector((state) => state.dishesEditReducer);
 
   useEffect(() => {
-    idDish === "new" ? dispatch(getDishNew()) : dispatch(getDishById(idDish));
-  }, [dispatch, idDish]);
-
-  const { name, ingredients, photo, calories, price } = dish;
+    isNewDish ? dispatch(getDishNew()) : dispatch(getDishById(idDish));
+  }, [dispatch, idDish, isNewDish]);
 
   const redirectToPlace = (idPlace) => history.push(`/owner/places/${idPlace}`);
 
@@ -62,7 +64,7 @@ const EditDishes = () => {
     formData.append("calories", values.calories);
     formData.append("place", idPlace);
 
-    if (idDish === "new") {
+    if (isNewDish) {
       dispatch(postDish(formData));
     } else {
       dispatch(putDishById(idDish, formData));
@@ -81,9 +83,8 @@ const EditDishes = () => {
   return (
     <>
       <Paper elevation={3} className={classes.paperContainer}>
-        {dishLoading ? (
-          <Spinner />
-        ) : (
+        {dishLoading && <Spinner />}
+        {!dishLoading && (
           <Formik
             enableReinitialize
             initialValues={{
@@ -126,10 +127,10 @@ const EditDishes = () => {
                     disabled={isSubmitting}
                     onClick={submitForm}
                   >
-                    {idDish === "new" ? "Добавить блюдо" : "Внести изменения"}
+                    {isNewDish ? "Добавить блюдо" : "Внести изменения"}
                   </Button>
 
-                  {idDish !== "new" && (
+                  {isNewDish && (
                     <Button
                       disabled={isSubmitting}
                       onClick={() => handleDelte(idDish)}
