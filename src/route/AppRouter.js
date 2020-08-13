@@ -8,7 +8,15 @@ const AppRouter = () => {
     <Router>
       <Switch>
         <Route exact path="/" component={MainPage} />
-        <Route path="/owner/places" component={PlacesPage} />
+        <Route
+          path="/owner/places/:idPlace/dishes/:idDish"
+          component={() => <PlacesPage isEditDishes />}
+        />
+        <Route
+          path="/owner/places/:idPlace"
+          component={() => <PlacesPage isEditPlaces />}
+        />
+        <Route path="/owner/places/" component={PlacesPage} />
       </Switch>
     </Router>
   );

@@ -108,9 +108,9 @@ const Places = () => {
           </Link>
         </Drawer>
 
-        <div className={classes.sideBlock}>
-          <PlacesideRouter />
-        </div>
+        {/* <div className={classes.sideBlock}> */}
+        {/* <PlacesideRouter /> */}
+        {/* </div> */}
       </div>
     </>
   );
