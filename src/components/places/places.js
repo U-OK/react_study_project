@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, Switch, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import PlacesideRouter from "../../route/PlacesideRouter";
 import { getPlaces } from "../../redux/placesList/actions";
 
 import { Title, Spinner } from "..";
@@ -18,6 +17,8 @@ import {
   ListItemAvatar,
   Avatar,
 } from "@material-ui/core";
+import EditPlaces from "../editPlaces/editPlaces";
+import EditDishes from "../editDishes/editDishes";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -108,9 +109,15 @@ const Places = () => {
           </Link>
         </Drawer>
 
-        {/* <div className={classes.sideBlock}> */}
-        {/* <PlacesideRouter /> */}
-        {/* </div> */}
+        <div className={classes.sideBlock}>
+          <Switch>
+            <Route
+              path="/owner/places/:idPlace/dishes/:idDish"
+              component={EditDishes}
+            />
+            <Route path="/owner/places/:idPlace" component={EditPlaces} />
+          </Switch>
+        </div>
       </div>
     </>
   );

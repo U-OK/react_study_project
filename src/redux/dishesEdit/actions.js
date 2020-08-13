@@ -40,6 +40,7 @@ export const getDishById = (id) => {
   };
 };
 
+//WIP
 export const putDishById = (id, dish) => {
   return (dispatch) => {
     api
