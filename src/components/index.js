@@ -11,3 +11,6 @@ export { default as ImagePreview } from "./imagePreview/imagePreview";
 export { default as FieldImage } from "./inputs/fieldImage";
 export { default as FieldText } from "./inputs/fieldText";
 export { default as FieldTime } from "./inputs/fieldTime";
+export { default as Portal } from "./portals/portal";
+export { default as Modal } from "./modals/modal";
+export { default as IngredientNew } from "./ingredients/ingredientNew";

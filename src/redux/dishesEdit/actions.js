@@ -6,9 +6,11 @@ import {
   GET_DISH_BY_ID_FAILURE,
   GET_DISH_BY_ID_STARTED,
   GET_DISH_BY_ID_SUCCES,
+  ADD_SELECTED_INGREDIENTS,
 } from "./actionTypes";
 
 import { api } from "../../api";
+import { startSetIngredients } from "../ingredients/actions";
 
 export const getDishes = (id) => {
   return (dispatch) => {
@@ -33,6 +35,7 @@ export const getDishById = (id) => {
       .GET(`dishes/${id}/`)
       .then((res) => {
         dispatch(getDisheByIdSucces(res.data));
+        dispatch(startSetIngredients(res.data.ingredients));
       })
       .catch((err) => {
         dispatch(getDishByIdFailure(err.message));
@@ -40,7 +43,6 @@ export const getDishById = (id) => {
   };
 };
 
-//WIP
 export const putDishById = (id, dish) => {
   return (dispatch) => {
     api
@@ -69,7 +71,6 @@ export const deleteDishById = (id) => {
 
 export const postDish = (dish) => {
   return (dispatch) => {
-    console.log(dish);
     api
       .POST(`dishes/`, dish)
       .then((response) => {
@@ -80,6 +81,15 @@ export const postDish = (dish) => {
       });
   };
 };
+
+export const getDishNew = () => ({
+  type: GET_DISH_NEW,
+});
+
+export const addSelectedIngredients = (selectedIngredients) => ({
+  type: ADD_SELECTED_INGREDIENTS,
+  payload: selectedIngredients,
+});
 
 const getDishesStarted = () => ({
   type: GET_DISHES_STARTED,
@@ -111,8 +121,4 @@ const getDishByIdFailure = (error) => ({
   payload: {
     error,
   },
-});
-
-export const getDishNew = () => ({
-  type: GET_DISH_NEW,
 });
