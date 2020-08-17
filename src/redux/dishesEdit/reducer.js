@@ -6,6 +6,7 @@ import {
   GET_DISH_BY_ID_SUCCES,
   GET_DISH_BY_ID_STARTED,
   GET_DISH_BY_ID_FAILURE,
+  ADD_SELECTED_INGREDIENTS,
 } from "./actionTypes";
 
 const initialState = {
@@ -16,7 +17,7 @@ const initialState = {
   dish: {
     name: "Введите название блюда",
     photo: "",
-    ingredients: [38],
+    ingredients: [],
     calories: "0",
     price: "0",
   },
@@ -73,6 +74,15 @@ export default function (state = initialState, action) {
         dishLoading: initialState.dishLoading,
         dish: initialState.dish,
         errorDish: initialState.errorDish,
+      };
+    }
+    case ADD_SELECTED_INGREDIENTS: {
+      return {
+        ...state,
+        dish: {
+          ...state.dish,
+          ingredients: [...action.payload],
+        },
       };
     }
     default:

@@ -58,7 +58,10 @@ const EditDishes = () => {
     const formData = new FormData();
 
     formData.append("name", values.name);
-    formData.append("ingredients", ingredients);
+    formData.append(
+      "ingredients",
+      ingredients.map((ingredient) => ingredient.id)
+    );
     formData.append("photo", values.file);
     formData.append("price", values.price);
     formData.append("calories", values.calories);

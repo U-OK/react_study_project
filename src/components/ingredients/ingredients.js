@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import {
   InputLabel,
@@ -8,6 +8,8 @@ import {
   ListItemText,
   makeStyles,
 } from "@material-ui/core";
+import { Modal } from "..";
+import IngredientMenu from "./ingredientMenu";
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {
@@ -48,10 +50,12 @@ const useStyles = makeStyles((theme) => ({
 const Ingredients = ({ ingredients }) => {
   const classes = useStyles();
 
+  const [isOpenModal, setIsOpenModal] = useState(false);
+
   return (
     <div className={classes.wrapper}>
       <div>
-        <InputLabel id="ingredients">Блюда</InputLabel>
+        <InputLabel id="ingredients">Ингредиенты</InputLabel>
         <List className={classes.root}>
           {ingredients.map((ingredient, id) => (
             <ListItem button className={classes.item} key={ingredient + id}>
@@ -60,9 +64,20 @@ const Ingredients = ({ ingredients }) => {
           ))}
         </List>
       </div>
-      <Button className={classes.button} variant="contained" color="primary">
-        Добавить ингредиент
+      <Button
+        onClick={() => setIsOpenModal(true)}
+        className={classes.button}
+        variant="contained"
+        color="primary"
+      >
+        Изменить ингредиенты
       </Button>
+      <Modal
+        title={"Добавить ингредиент"}
+        isOpen={isOpenModal}
+        onClose={() => setIsOpenModal(false)}
+        component={IngredientMenu}
+      />
     </div>
   );
 };
