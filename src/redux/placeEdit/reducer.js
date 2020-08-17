@@ -2,10 +2,11 @@ import {
   GET_PLACE_FAILURE,
   GET_PLACE_STARTED,
   GET_PLACE_SUCCES,
+  GET_PLACE_NEW,
 } from "./actionTypes";
 
 const initialState = {
-  isLoading: false,
+  placeLoading: false,
   currentPlace: {
     name: "Введите название",
     image: "",
@@ -21,21 +22,26 @@ export default function (state = initialState, action) {
     case GET_PLACE_STARTED: {
       return {
         ...state,
-        loading: true,
+        placeLoading: true,
       };
     }
     case GET_PLACE_SUCCES: {
       return {
         ...state,
-        loading: false,
+        placeLoading: false,
         currentPlace: action.payload,
       };
     }
     case GET_PLACE_FAILURE: {
       return {
         ...state,
-        loading: false,
+        placeLoading: false,
         error: action.payload.error,
+      };
+    }
+    case GET_PLACE_NEW: {
+      return {
+        ...initialState,
       };
     }
     default:

@@ -2,6 +2,7 @@ import {
   GET_PLACE_FAILURE,
   GET_PLACE_STARTED,
   GET_PLACE_SUCCES,
+  GET_PLACE_NEW,
 } from "./actionTypes";
 
 import { api } from "../../api";
@@ -74,4 +75,8 @@ const getPlaceFailure = (error) => ({
   payload: {
     error,
   },
+});
+
+export const getPlaceNew = () => ({
+  type: GET_PLACE_NEW,
 });

@@ -2,11 +2,11 @@ import React from "react";
 
 import { Places, Header } from "../components";
 
-const PlacesPage = () => {
+const PlacesPage = ({ children }) => {
   return (
     <div className="App">
       <Header />
-      <Places />
+      <Places children={children} />
     </div>
   );
 };
