@@ -1,10 +1,13 @@
 import axios from "axios";
 
+const { token } = JSON.parse(localStorage.getItem("User data")) || "";
+const authorizationConfig = token ? `Token ${token}` : "";
+
 const HTTP = axios.create({
   baseURL: "http://37.140.197.3/api/",
   headers: {
     common: {
-      Authorization: `Token 8dd57f8387674e5396bd487a560401ee4c74a1ed`,
+      Authorization: authorizationConfig,
       "Content-Type": "multipart/form-data",
     },
   },

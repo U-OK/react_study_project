@@ -23,6 +23,8 @@ const useStyles = makeStyles((theme) => ({
 const Header = (props) => {
   const classes = useStyles();
 
+  const isAuth = localStorage.getItem("User data") === null ? false : true;
+
   return (
     <Grid container>
       <AppBar position="static" className={classes.appBar}>
@@ -32,14 +34,25 @@ const Header = (props) => {
               <Button className={classes.linkButton}>Главная страница</Button>
             </Link>
 
-            <Link to="/owner/places">
-              <Button className={classes.linkButton}>Страница заведений</Button>
-            </Link>
+            {isAuth && (
+              <Link to="/owner/places">
+                <Button className={classes.linkButton}>
+                  Страница заведений
+                </Button>
+              </Link>
+            )}
           </Grid>
           <Grid item>
-            <Link to="/">
-              <Button className={classes.linkButton}>Войти</Button>
-            </Link>
+            {isAuth && (
+              <Link to="#">
+                <Button className={classes.linkButton}>Выйти</Button>
+              </Link>
+            )}
+            {isAuth || (
+              <Link to="/auth/authorization">
+                <Button className={classes.linkButton}>Войти</Button>
+              </Link>
+            )}
           </Grid>
         </Toolbar>
       </AppBar>

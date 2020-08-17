@@ -10,8 +10,12 @@ export const getPlaces = () => {
   return (dispatch) => {
     dispatch(getPlacesStarted());
 
+    const {
+      user: { pk },
+    } = JSON.parse(localStorage.getItem("User data"));
+
     api
-      .GET("places")
+      .GET(`places/?format=json&owner=${pk}`)
       .then((res) => {
         dispatch(getPlacesSuccess(res.data));
       })
