@@ -5,7 +5,7 @@ const MainPage = () => {
   return (
     <div className="App">
       <Header />
-      {/* <Main /> */}
+      <Main />
     </div>
   );
 };

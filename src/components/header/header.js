@@ -49,7 +49,7 @@ const Header = (props) => {
                 <Button className={classes.linkButton}>Выйти</Button>
               </Link>
             )}
-            {isAuth || (
+            {!isAuth && (
               <Link to="/auth/authorization">
                 <Button className={classes.linkButton}>Войти</Button>
               </Link>
