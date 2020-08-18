@@ -64,8 +64,6 @@ const EditPlaces = () => {
     formData.append("to_hour", values.to_hour);
     formData.append("address", values.address);
 
-    console.log(values);
-
     if (isNewPlace) {
       dispatch(postPlace(formData));
     } else {

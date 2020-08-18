@@ -79,7 +79,6 @@ const EditDishes = () => {
 
   const handleDelte = (idDish) => {
     dispatch(deleteDishById(idDish));
-    console.log(idPlace);
     redirectToPlace(idPlace);
   };
 
