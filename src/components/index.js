@@ -16,3 +16,4 @@ export { default as Modal } from "./modals/modal";
 export { default as IngredientNew } from "./ingredients/ingredientNew";
 export { default as SignUp } from "./authorization/sighUp";
 export { default as SignIn } from "./authorization/signIn";
+// export { default as Main } from "./main/main";
