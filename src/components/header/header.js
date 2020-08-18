@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import { Grid, AppBar, Toolbar, Button, makeStyles } from "@material-ui/core";
+import useAuth from "../../hooks/useAuth";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -23,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 const Header = (props) => {
   const classes = useStyles();
 
-  const isAuth = localStorage.getItem("User data") === null ? false : true;
+  const isAuth = useAuth();
 
   return (
     <Grid container>
