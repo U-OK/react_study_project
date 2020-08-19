@@ -6,17 +6,29 @@ import {
   Slider,
   Typography,
   Switch,
-  TextField,
   Button,
+  makeStyles,
 } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllPlaces } from "../../redux/placesList/actions";
 import usePosition from "../../hooks/usePosition";
 import { CardPlace, FieldText } from "..";
 import { Formik, Form, Field } from "formik";
-import { useLocation, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+
+const useStyles = makeStyles((theme) => ({
+  form: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    width: "80%",
+    margin: "auto",
+    padding: "15px",
+  },
+}));
 
 const Main = () => {
+  const classes = useStyles();
   const dispatch = useDispatch();
   const { allPlaces } = useSelector((state) => state.placesListReducer);
   const userPosition = usePosition();
@@ -24,20 +36,25 @@ const Main = () => {
 
   useEffect(() => {
     dispatch(getAllPlaces());
-  }, [dispatch, history]);
+  }, [dispatch]);
 
   const distanceTo = (lat1, lon1, lat2, lon2) => {
-    const R = 6371; // Radius of the earth in km
-    const dLat = deg2rad(lat2 - lat1);
-    const dLon = deg2rad(lon2 - lon1);
-    const a =
-      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    const EARTH_RADIUS = 6371; // Radius of the earth in km
+    const DELTA_LATITUDE = deg2rad(lat2 - lat1);
+    const DELTA_LONGTITUDE = deg2rad(lon2 - lon1);
+    const SPHERICAL_LAW_OF_COSINES =
+      Math.sin(DELTA_LATITUDE / 2) * Math.sin(DELTA_LATITUDE / 2) +
       Math.cos(deg2rad(lat1)) *
         Math.cos(deg2rad(lat2)) *
-        Math.sin(dLon / 2) *
-        Math.sin(dLon / 2);
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    const distance = R * c;
+        Math.sin(DELTA_LONGTITUDE / 2) *
+        Math.sin(DELTA_LONGTITUDE / 2);
+    const CENTRAL_SUBTENDED_ANGLE =
+      2 *
+      Math.atan2(
+        Math.sqrt(SPHERICAL_LAW_OF_COSINES),
+        Math.sqrt(1 - SPHERICAL_LAW_OF_COSINES)
+      );
+    const distance = EARTH_RADIUS * CENTRAL_SUBTENDED_ANGLE;
     return distance.toFixed(0);
   };
 
@@ -47,14 +64,14 @@ const Main = () => {
 
   const handleSubmit = (values) => {
     history.push(
-      `/?name=${values.name}&price=${values.price}&isOpen=${values.isOpen}`
+      `/?name=${values.name}&price=${values.price}&open=${values.isOpen}`
     );
   };
 
   return (
-    <Container style={{ paddingTop: "8px" }} maxWidth={false}>
+    <Container maxWidth={false}>
       <Grid container spacing={2}>
-        <Grid item xs={5} style={{ maxHeight: "100%" }}>
+        <Grid item xs={5}>
           <Paper elevation={3}>
             <Formik
               enableReinitialize
@@ -66,16 +83,7 @@ const Main = () => {
               onSubmit={(values) => handleSubmit(values)}
             >
               {({ values, submitForm, setFieldValue }) => (
-                <Form
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    width: "80%",
-                    margin: "auto",
-                    padding: "15px",
-                  }}
-                >
+                <Form className={classes.form}>
                   <Field
                     component={FieldText}
                     name="name"

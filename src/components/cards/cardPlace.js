@@ -41,20 +41,14 @@ const CardPlace = ({
 
       const searchName = params.get("name");
       const searchPrice = params.get("price");
-      const searchIsOpen = params.get("isOpen");
+      const searchIsOpen = params.get("open");
 
       if (
-        searchName &&
-        !name.toLowerCase().includes(searchName.toLowerCase())
+        (searchName &&
+          !name.toLowerCase().includes(searchName.toLowerCase())) ||
+        searchPrice < average_price ||
+        (searchIsOpen === "true" && !isOpen)
       ) {
-        return false;
-      }
-
-      if (searchPrice < average_price) {
-        return false;
-      }
-
-      if (searchIsOpen === "true" && !isOpen) {
         return false;
       }
 
