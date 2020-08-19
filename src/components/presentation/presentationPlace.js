@@ -5,6 +5,7 @@ import CardPlace from "../cards/cardPlace";
 import CardDish from "../cards/cardDish";
 import { useSelector, useDispatch } from "react-redux";
 import { getDishes } from "../../redux/dishesEdit/actions";
+import { Map } from "..";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -21,6 +22,10 @@ const useStyles = makeStyles((theme) => ({
   },
   gridContainer: {
     padding: "10px",
+  },
+  menu: {
+    display: "flex",
+    overflowY: "scroll",
   },
 }));
 
@@ -41,16 +46,14 @@ const PresentationPlace = () => {
             <Grid item xs={12}>
               <CardPlace {...location.state} />
             </Grid>
-            <Grid item xs={12} style={{ overflowY: "scroll" }}>
-              {/* {
-                menu.map(menuItem => (
-                  <CardDish {...menuItem}/>
-                ))
-              } */}
+            <Grid item xs={12} className={classes.menu}>
+              {menu.map((menuItem, index) => (
+                <CardDish {...menuItem} key={menuItem + index} />
+              ))}
             </Grid>
           </Grid>
           <Grid item xs={4}>
-            {/* карту сделать не успел, простите :( */}
+            <Map />
           </Grid>
         </Grid>
       </Paper>

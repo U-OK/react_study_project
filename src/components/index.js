@@ -20,3 +20,4 @@ export { default as Main } from "./main/main";
 export { default as CardPlace } from "./cards/cardPlace";
 export { default as PresentationPlace } from "./presentation/presentationPlace";
 export { default as CardDish } from "./cards/cardDish";
+export { default as Map } from "./map/GoogleMap";
