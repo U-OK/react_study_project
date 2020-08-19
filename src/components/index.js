@@ -18,3 +18,5 @@ export { default as SignUp } from "./authorization/sighUp";
 export { default as SignIn } from "./authorization/signIn";
 export { default as Main } from "./main/main";
 export { default as CardPlace } from "./cards/cardPlace";
+export { default as PresentationPlace } from "./presentation/presentationPlace";
+export { default as CardDish } from "./cards/cardDish";

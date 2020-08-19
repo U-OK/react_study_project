@@ -5,12 +5,14 @@ import { MainPage } from "../pages";
 import { EditDishes, EditPlaces } from "../components";
 import { PlacesRoute } from "./PlacesRoute";
 import AuthPage from "../pages/AuthPage";
+import PresentationPage from "../pages/PresentationPage";
 
 const AppRouter = () => {
   return (
     <Router>
       <Switch>
         <Route exact path="/" component={MainPage} />
+        <Route path="/presentation" component={PresentationPage} />
         <Route path="/auth/:type" component={AuthPage} />
         <PlacesRoute exact path="/owner/places/" />
         <PlacesRoute
