@@ -8,7 +8,7 @@ import {
   Button,
   Typography,
 } from "@material-ui/core";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 
 const CardPlace = ({
   name,
@@ -18,6 +18,7 @@ const CardPlace = ({
   address,
   distance,
   average_price,
+  id,
 }) => {
   const location = useLocation();
 
@@ -57,45 +58,61 @@ const CardPlace = ({
   };
 
   if (!checkParams(name, average_price, isOpen)) {
-    return <></>;
+    return null;
   }
 
   return (
-    <Button style={{ width: "100%" }}>
-      <Card style={{ width: "100%" }}>
-        <Grid container spacing={2}>
-          <Grid item xs={8}>
-            <CardContent
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                width: "100%",
-              }}
-            >
-              <Typography component="h2" variant="h6">
-                {name}
-              </Typography>
-              <Typography variant="body1">
-                {isOpen ? "Открыто" : "Закрыто"}, {from_hour.slice(0, 5)}-
-                {to_hour.slice(0, 5)}
-              </Typography>
-              <Typography variant="overline">{address}</Typography>
-              <Typography variant="overline">
-                Средний чек: {average_price.toFixed(0)} руб.
-              </Typography>
-              <Typography variant="caption">{distance} км от нас</Typography>
-            </CardContent>
+    <Link
+      to={{
+        pathname: "/presentation",
+        state: {
+          name,
+          image,
+          from_hour,
+          to_hour,
+          address,
+          distance,
+          average_price,
+          id,
+        },
+      }}
+    >
+      <Button style={{ width: "100%" }}>
+        <Card style={{ width: "100%" }}>
+          <Grid container spacing={2}>
+            <Grid item xs={8}>
+              <CardContent
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  width: "100%",
+                }}
+              >
+                <Typography component="h2" variant="h6">
+                  {name}
+                </Typography>
+                <Typography variant="body1">
+                  {isOpen ? "Открыто" : "Закрыто"}, {from_hour.slice(0, 5)}-
+                  {to_hour.slice(0, 5)}
+                </Typography>
+                <Typography variant="overline">{address}</Typography>
+                <Typography variant="overline">
+                  Средний чек: {average_price.toFixed(0)} руб.
+                </Typography>
+                <Typography variant="caption">{distance} км от нас</Typography>
+              </CardContent>
+            </Grid>
+            <Grid item xs={4}>
+              <CardMedia
+                style={{ height: "100%" }}
+                image={`${image}`}
+                title="Paella dish"
+              />
+            </Grid>
           </Grid>
-          <Grid item xs={4}>
-            <CardMedia
-              style={{ height: "100%" }}
-              image={`${image}`}
-              title="Paella dish"
-            />
-          </Grid>
-        </Grid>
-      </Card>
-    </Button>
+        </Card>
+      </Button>
+    </Link>
   );
 };
 
